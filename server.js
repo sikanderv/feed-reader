@@ -21,11 +21,11 @@ hbs.registerHelper('scream', (text) => {
 app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
 
-app.use((req,res, next) => {
-    // var now = new Date().toString();
-    // console.log(`${now}`);    
-    // next();
-});
+// app.use((req,res, next) => {
+//     // var now = new Date().toString();
+//     // console.log(`${now}`);    
+//     // next();
+// });
 
 app.get('/', (req, res) => {
     // res.send('<h1>Hello Express!</h1>');
