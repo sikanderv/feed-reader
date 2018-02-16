@@ -1,0 +1,37 @@
+/* Your custom styles */
+html,
+body {
+    height: 100%;
+}
+
+.navbar {
+    background-color: #24355C;
+}
+body {
+  font-family: 'Quando';
+}
+
+
+.top-nav-collapse {
+  background-color: #24355C;
+  /* background-color: #f3e5f5; */
+}
+
+
+.quote {
+  margin-top: 8rem !important;
+}
+
+
+.img-responsive {
+    height: 80% !important;
+    width: 80% !important;
+}
+
+.sticky {
+    bottom: 0;
+}
+
+.lead {
+    line-height: 28.5px;
+}

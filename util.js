@@ -14,19 +14,20 @@ function strip_html_tags(str)
  * title, link, description, author, image
  * 
  */
-function getArticles(url, records){
+function getArticles(feedName, records){
   let feedArticles = [];
   let article = {};
   records.forEach(element => {
-      debugger;
       article = {};
+      article.guid = element.guid;
       article.title = element.title;
       article.link = element.link;
       article.description = sanitize_html(element.description,{ allowedTags: ['p'], allowedAttributes: [] });
       article.author = element.author;
-      article.image = getImage(url, element);
+      article.image = getImage(feedName, element);
       feedArticles.push(article);
-  });    
+  });
+
   return feedArticles;   
 }
 
@@ -36,7 +37,6 @@ function getArticles(url, records){
 * 
 */
 function getImage(feedName, item){
-  debugger;
   switch (feedName) {
       case "Guardian":
           if (item['media:content']) {
@@ -68,3 +68,18 @@ module.exports = {
   getArticles: getArticles,
   getImage: getImage
 }
+
+
+
+
+
+
+// function getImage(feedName, item){
+//     debugger;
+  
+//       if (item.image) {
+//           return item.image; 
+//       } else {
+//           return undefined;
+//       }  
+//       }

@@ -1,24 +1,31 @@
 'use strict';
 
 // Node modules (core and downloaded)
-const   express = require('express'),
-        hbs = require('hbs'),
-        fs = require('fs'),
-        Promise = require('bluebird'),
-        request = require('request');
+
+const express = require('express'),
+    hbs = require('hbs'),
+    fs = require('fs'),
+    Promise = require('bluebird'),
+    path = require('path'),
+    request = require('request'),
+    socketIO = require('socket.io');
+
+var app = express();
+var server = require('http').createServer(app);
+var io = socketIO(server);
+
 
 // User-created modules
-const   data = require('./data.js'),
-        promise = require('./promise.js'),
-        util = require('./util.js');
+const data = require('./data.js'),
+    promise = require('./promise.js'),
+    util = require('./util.js');
 
 
 // Unused - delete from package.json later**
-const   path = require('path'),
-        http = require('http'),
-        axios = require('axios'),
-        escape_string = require('escape-string-regexp');
-        
+const http = require('http'),
+    axios = require('axios'),
+    escape_string = require('escape-string-regexp');
+
 // Constants
 const port = process.env.PORT || 3000;
 const urls = {
@@ -30,26 +37,25 @@ const urls = {
     // "WeirdNews": "http://feeds.skynews.com/feeds/rss/strange.xml"
     // "TechMeme": https://www.techmeme.com/feed.xml
 };
+const publicPath = path.join(__dirname, '/public');
 
-// Program variables
-let app = express();
+
 let selectedURL = urls.TechCrunch;
-let articles;
+var articles;
+var _contents = [];
 
-// Fetch feed using promises
-Promise.map([
-    selectedURL
-], (url) => promise.fetchPromise(url), {concurrency: 3}) 
-.then((feeds) => {
-    // Extract only record info, ignoring meta info
-    let allRecords = JSON.parse(feeds[0].records); 
-    // Process records
-    articles = util.getArticles(selectedURL, allRecords);
+
+
+server.listen(port, () => {
+    console.log(`Server is up and running on port ${port}`);
 });
+
+
+
 
 // Views/Handlebar related
 hbs.registerPartials(__dirname + '/views/partials');
-hbs.registerHelper('getCurrentYear', () =>{
+hbs.registerHelper('getCurrentYear', () => {
     return new Date().getFullYear();
 });
 
@@ -62,7 +68,7 @@ app.set('view engine', 'hbs');
 
 
 // Middleware call #1 - logging server activity
-app.use((req,res, next) => {
+app.use((req, res, next) => {
     var now = new Date().toString();
     var log = `${now}: ${req.method} ${req.url}`;
     console.log(log);
@@ -70,7 +76,7 @@ app.use((req,res, next) => {
         if (err) {
             console.log('Unable to append to server.log.');
         }
-    });    
+    });
     next();
 });
 
@@ -84,43 +90,171 @@ app.use((req,res, next) => {
 // Instruct app to display public views
 app.use(express.static(__dirname + '/public'));
 
+
 app.get('/', (req, res) => {
     // res.send('<h1>Hello Express!</h1>');
     res.render('home.hbs', {
-       pageHeading: 'Home Page',
-       pageTitle: 'Your Feed Reader',
-       contents: JSON.stringify(articles, undefined,2)
-   });
-});
-
-
-app.get('/about', (req, res) =>{
-    // res.send('About Page');
-    res.render('about.hbs', {
-        pageTitle: 'About Page'
-    });
-});
-
-app.get('/bad', (req, res) =>{
-    res.send({
-        errorMessage: 'Something went wrong'
+        pageTitle: 'Feed reader',
+        pageHeading: 'Home page',
+        path: publicPath,
+        contents: _contents
     });
 });
 
 
-app.listen(port, () => {
-    console.log(`Server is up and running on port ${port}`);
+app.get('/update', (req, res) => {
+
+    // retrieve params from on click event handler in main.js
+    // let _url = req.query.site_url;
+    let _name = req.query.site_name;
+    // Retrieve name of website based on URL chosen
+    let _url = getUrl(_name, urls);
+    debugger;
+
+    // Fetch feed using promises
+    Promise.map([
+        _url
+    ], (url) => promise.fetchPromise(url), { concurrency: 3 })
+        .then( (data) => {
+            // Extract only record info, ignoring meta info
+            // allRecords contains all the raw data from the feed
+            let allRecords = JSON.parse(data[0].records);
+
+            // Process records to discard information we do not need
+            articles = util.getArticles(_name, allRecords);
+
+
+            console.log(articles);            
+            res.send(articles);
+
+
+            // console.log(articles);
+
+
+        });
+
+    // // // request module to process the url and return results in json format
+    // requests(_url, function (data) {
+
+    //     res.send(data);
+    // });
+
 });
 
+function getUrl(name, obj){
+    debugger;
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key) && key === name) {
+            return obj[key];
+        }
+    }
+}
 
-/* PLAYGROUND */
-// let test1 = '<p>Shadow chancellor says Labour’s public ownership agenda is an economic necessity</p><p>Labour’s plans to bring services into public ownership would cost “absolutely nothing”, John McDonnell has said.</p><p>The shadow chancellor outlined an agenda to put public services “irreversibly in the hands of workers” so they could “never again be taken away”. </p> <a href="https://www.theguardian.com/uk-news/2018/feb/10/john-mcdonnell-says-moving-services-to-public-hands-would-cost-nothing">Continue reading...</a>';
-// console.log(util.strip_html_tags(test1));
-// console.log(sanitize_html(test1, {
-//                         allowedTags: ['p'],
-//                         allowedAttributes: []
-//                     }));
+//     app.get('/list', (req, res) => {
+//         res.render('list.hbs', {
+//             pageTitle: 'List all articles',
+//             pageHeading: 'List all feed items on this page',
+//             contents: JSON.stringify(articles, undefined, 2)
+//         });
+//     });
 
 
-// const publicPath = path.join(__dirname, '\\..\\public');
-// console.log(publicPath);
+//     app.get('/article', (req, res) => {
+//         res.render('article.hbs', {
+//             pageTitle: 'Display article',
+//             pageHeading: 'Individiual article here'
+//         });
+//     });
+
+
+
+//     app.get('/bad', (req, res) => {
+//         res.send({
+//             errorMessage: 'Something went wrong'
+//         });
+//     });
+
+
+// function requests(url, callback) {
+//     request(url, function (err, resp, body) {
+//         var resultsArray = [];
+//         console.log(typeof body);
+//         console.log(body);
+//         // body = JSON.parse(body);
+
+//         // Extract only record info, ignoring meta info so that
+//         // allRecords contains all the raw data from the feed
+
+//         let allRecords = JSON.parse(body[0].records);
+
+//         // Process records to discard information we do not need
+//         articles = util.getArticles(_url, allRecords);
+
+
+//         debugger;
+//         if (!articles) {
+//             results = "No results found";
+//             callback(results);
+//         } else {
+//             results = articles;
+//             for (let i = 0; i < results.length; i++) {
+//                 resultsArray.push({ title: results[i].title });
+//             };
+//         }
+
+//         callback(resultsArray);
+//     })
+// };
+
+// $.ajax({
+//     url: '/update'
+//     , type: 'POST'
+//     , dataType: 'text'
+//     , data: {
+//         "tech": 'http://feeds.feedburner.com/Techcrunch'
+//       }
+// })
+//     .done(function (newData) {
+//         // console.log(newData);
+//         $('#results').html(dataTemplate({resArray: newData}));
+//     })
+//     .fail(function (err) {
+//         console.log(err);
+//     });
+
+
+
+
+
+
+
+// Fetch feed using promises
+// Promise.map([
+//     selectedURL
+// ], (url) => promise.fetchPromise(url), { concurrency: 3 })
+//     .then((feeds) => {
+//         // Extract only record info, ignoring meta info
+//         // allRecords contains all the raw data from the feed
+//         let allRecords = JSON.parse(feeds[0].records);
+
+//         // Process records to discard information we do not eed
+//         articles = util.getArticles(selectedURL, allRecords);
+
+//         for (const url in urls) {
+//             if (urls.hasOwnProperty(url) && urls[url] === selectedURL) {
+//                 _contents.push({
+//                     name: url,
+//                     data: JSON.stringify(articles, undefined, 2)
+//                 })
+
+//             } else {
+//                 _contents.push({
+//                     name: url,
+//                     data: "not requested"
+//                 })
+//             };
+
+//             // console.log(_contents);
+//             // console.log(typeof _contents);
+//         }
+//     });

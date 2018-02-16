@@ -1,5 +1,53 @@
 <header>
-    <h1>{{pageTitle}}</h1>
-    <p><a href="/">Home</a></p>
-    <p><a href="/about">About</a></p>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+
+        <!-- Container to center the links, s/b inside navbar always -->
+        <div class="container">
+
+            <!-- Navbar brand -->
+            <a href="#" class="navbar-brand js-scroll-trigger">{{pageTitle}}</a>
+
+
+            <!-- Collapse/toggle button -->
+
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <!-- Navbar links -->
+                <ul class="navbar-nav mr-auto smooth-scroll">
+                    <li class="nav-item active mr-4">
+                        <a href="#" class="nav-link js-scroll-trigger">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mr-4">
+                        <a href="#stats" class="nav-link js-scroll-trigger">Statistics</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mr-4">
+                        <a href="#about" class="nav-link js-scroll-trigger">About</span>
+                        </a>
+                    </li>
+
+                </ul>
+                <!-- links -->
+
+            </div>
+            <!-- collapsible content -->
+
+        </div>
+        <!-- container inside the navbar -->
+
+    </nav>
+    <!-- navbar -->
+
 </header>
