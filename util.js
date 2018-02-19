@@ -58,7 +58,7 @@ function getImage(feedName, item){
       default:
           if (item.image) {
               return item.image.url;
-          };   
+          };
           break;
   }  
 }
@@ -69,17 +69,3 @@ module.exports = {
   getImage: getImage
 }
 
-
-
-
-
-
-// function getImage(feedName, item){
-//     debugger;
-  
-//       if (item.image) {
-//           return item.image; 
-//       } else {
-//           return undefined;
-//       }  
-//       }

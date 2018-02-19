@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{> head}}
-<body>
+
+{{> head}}
+
+<body data-title="article">
     {{> header}}
-    
-    <p>{{article}}</p>
+
+    <!-- Tab panels -->
+    <div class="container m-5">
+
+        <!--Article stats-->
+        <div id="chartdiv">
+
+        </div>
+
+        <!--Article-->
+        <div id="article" class="m-5 container">
+
+        </div>
+
+
+    </div>
 
     {{> footer}}
+
+    <script type="text/javascript" src="javascripts/main.js"></script>
 </body>
+
 </html>

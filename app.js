@@ -16,9 +16,10 @@ var io = socketIO(server);
 
 
 // User-created modules
-const data = require('./data.js'),
-    promise = require('./promise.js'),
+const promise = require('./promise.js'),
     util = require('./util.js');
+
+// const data = require('./data.js');
 
 
 // Unused - delete from package.json later**
@@ -74,7 +75,7 @@ app.use((req, res, next) => {
     console.log(log);
     fs.appendFile('server.log', log + '\n', (err) => {
         if (err) {
-            console.log('Unable to append to server.log.');
+            console.log('Error: ', err);
         }
     });
     next();
@@ -92,12 +93,10 @@ app.use(express.static(__dirname + '/public'));
 
 
 app.get('/', (req, res) => {
-    // res.send('<h1>Hello Express!</h1>');
+
     res.render('home.hbs', {
         pageTitle: 'Feed reader',
-        pageHeading: 'Home page',
-        path: publicPath,
-        contents: _contents
+        pageHeading: 'Home page'
     });
 });
 
@@ -139,6 +138,18 @@ app.get('/update', (req, res) => {
     //     res.send(data);
     // });
 
+});
+
+app.get('/article', (req, res) => {
+
+    console.log('req.query.guid');
+
+    // res.redirect('/article');
+
+    res.render('article.hbs', {
+        pageTitle: 'Article view',
+        pageHeading: 'Article page'
+    });
 });
 
 function getUrl(name, obj){
