@@ -78,7 +78,7 @@ if ($("body").data("title") === "home") {
                 localStorage.guid = '';
             }
 
-            alert(this.dataset.guid);
+            // alert(this.dataset.guid);
             localStorage.guid = this.dataset.guid;
 
 
