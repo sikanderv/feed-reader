@@ -14,10 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.17.1",
     "bluebird": "^3.5.1",
     "bootstrap": "^4.0.0",
-    "escape-string-regexp": "^1.0.5",
     "express": "^4.16.2",
     "feedparser": "^2.2.9",
     "handlebars": "^4.0.11",

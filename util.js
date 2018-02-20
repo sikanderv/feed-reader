@@ -63,9 +63,23 @@ function getImage(feedName, item){
   }  
 }
 
+
+/* 
+* Get the url based on the name of the feed
+* 
+*/
+function getUrl(name, obj){
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key) && key === name) {
+            return obj[key];
+        }
+    }
+}
+
 module.exports = {
   strip_html_tags: strip_html_tags,
   getArticles: getArticles,
-  getImage: getImage
+  getImage: getImage,
+  getUrl: getUrl
 }
 
