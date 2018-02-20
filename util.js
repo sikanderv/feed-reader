@@ -1,5 +1,8 @@
 const sanitize_html = require('sanitize-html');
 
+/* 
+ * Remove HTML tags from a string
+ */
 function strip_html_tags(str)
 {
    if ((str===null) || (str===''))
@@ -11,8 +14,7 @@ function strip_html_tags(str)
 
 /* 
  * Process all the "records" from the feed and return an Articles object containing
- * title, link, description, author, image
- * 
+ * guid, title, link, description, author, image
  */
 function getArticles(feedName, records){
   let feedArticles = [];

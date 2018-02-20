@@ -5,7 +5,8 @@
 // https://github.com/Automattic/kue
 
 /**
- * Module dependencies.
+ * This modules uses the node-feedparser module to process data from any type of feed (RSS, Atom, RDF) 
+ * into a uniform set of generic properties.
  */
 
 const
@@ -31,11 +32,6 @@ const fetchPromise = (url) => {
 
       while (item = feedparser.read()) {
         items.push(item)
-        // article.articleLink = item["link"];
-        // article.articleTitle = item["title"];
-        // article.articleDescription = item["description"];
-        // items[i] = article;
-        // i++;
       }
     }).on('end', () => {
       resolve({

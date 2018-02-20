@@ -2849,3 +2849,16 @@ Tue Feb 20 2018 12:27:52 GMT-0600 (Central Standard Time): GET /javascripts/main
 Tue Feb 20 2018 12:27:52 GMT-0600 (Central Standard Time): GET /font/roboto/Roboto-Regular.woff2
 Tue Feb 20 2018 12:27:52 GMT-0600 (Central Standard Time): GET /font/roboto/Roboto-Bold.woff2
 Tue Feb 20 2018 12:27:52 GMT-0600 (Central Standard Time): GET /font/roboto/Roboto-Light.woff2
+Tue Feb 20 2018 12:34:57 GMT-0600 (Central Standard Time): GET /
+Tue Feb 20 2018 12:34:57 GMT-0600 (Central Standard Time): GET /css/bootstrap.min.css
+Tue Feb 20 2018 12:34:57 GMT-0600 (Central Standard Time): GET /css/mdb.min.css
+Tue Feb 20 2018 12:34:57 GMT-0600 (Central Standard Time): GET /css/mdb.css
+Tue Feb 20 2018 12:34:57 GMT-0600 (Central Standard Time): GET /css/style.css
+Tue Feb 20 2018 12:34:57 GMT-0600 (Central Standard Time): GET /css/card-styles.css
+Tue Feb 20 2018 12:34:57 GMT-0600 (Central Standard Time): GET /javascripts/main.js
+Tue Feb 20 2018 12:34:57 GMT-0600 (Central Standard Time): GET /font/roboto/Roboto-Regular.woff2
+Tue Feb 20 2018 12:34:57 GMT-0600 (Central Standard Time): GET /font/roboto/Roboto-Bold.woff2
+Tue Feb 20 2018 12:34:57 GMT-0600 (Central Standard Time): GET /font/roboto/Roboto-Light.woff2
+Tue Feb 20 2018 12:35:00 GMT-0600 (Central Standard Time): GET /update?site_name=BBCSport
+Tue Feb 20 2018 12:35:02 GMT-0600 (Central Standard Time): GET /update?site_name=TechCrunch
+Tue Feb 20 2018 12:35:04 GMT-0600 (Central Standard Time): GET /update?site_name=Guardian
