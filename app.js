@@ -95,7 +95,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', (req, res) => {
 
     res.render('home.hbs', {
-        pageTitle: 'Feed reader',
+        pageTitle: 'Simple Feed Reader',
         pageHeading: 'Home page'
     });
 });
@@ -122,10 +122,8 @@ app.get('/update', (req, res) => {
             // Process records to discard information we do not need
             articles = util.getArticles(_name, allRecords);
 
-
-            console.log(articles);            
+            // console.log(articles);            
             res.send(articles);
-
 
             // console.log(articles);
 
@@ -142,13 +140,25 @@ app.get('/update', (req, res) => {
 
 app.get('/article', (req, res) => {
 
-    console.log('req.query.guid');
+    console.log('/article app.js');
 
     // res.redirect('/article');
 
     res.render('article.hbs', {
         pageTitle: 'Article view',
         pageHeading: 'Article page'
+    });
+});
+
+app.get('/stats', (req, res) => {
+
+    console.log('/stats app.js');
+
+    // res.redirect('/article');
+
+    res.render('stats.hbs', {
+        pageTitle: 'Statistics view',
+        pageHeading: 'Statistics page'
     });
 });
 
