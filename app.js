@@ -21,9 +21,9 @@ const urls = {
     "TechCrunch": "http://feeds.feedburner.com/Techcrunch",
     "BBCSport": "https://feeds.bbci.co.uk/sport/rss.xml?edition=int",
     // RSS
-    "Guardian": "https://www.theguardian.com/uk/rss"
+    "Guardian": "https://www.theguardian.com/uk/rss",
     // "WeirdNews": "http://feeds.skynews.com/feeds/rss/strange.xml"
-    // "TechMeme": https://www.techmeme.com/feed.xml
+    // "TechMeme": "https://www.techmeme.com/feed.xml"
 };
 
 

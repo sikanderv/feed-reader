@@ -14,13 +14,6 @@ body {
 }
 
 
-
-.quote {
-  margin-top: 8rem !important;
-
-}
-
-
 .img-responsive {
     height: 80% !important;
     width: 80% !important;
@@ -52,4 +45,12 @@ body {
 
 .navbar-collapse.collapse.in {
     display: block!important;
-  }
+}
+
+/* .img-container {
+    height: 700px;
+    width: 1000px;
+}
+.contain {
+    object-fit: contain;
+} */
