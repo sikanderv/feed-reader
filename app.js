@@ -35,18 +35,17 @@ let articles;
 
 
 // Start server
-// app.listen(port, () => {
-//     console.log(`Server is up and running on port ${port}`);
-// });
+app.listen(port, () => {
+    console.log(`Server is up and running on port ${port}`);
+});
 
 // app.listen(3000, process.env.OPENSHIFT_NODEJS_IP || process.env.IP || '127.0.0.1'){
 //     console.log(`Server is up and running on port ${port}`);
 // };
 
-app.listen(port, '192.168.0.15' || 'localhost',function() {
-    console.log('Application worker ' + process.pid + ' started...');
-  }
-  );
+// app.listen(port, '192.168.0.15' || 'localhost',function() {
+//     console.log('Application worker ' + process.pid + ' started...');
+//   });
 
 // Handlebar related
 hbs.registerPartials(__dirname + '/views/partials');
