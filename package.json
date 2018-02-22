@@ -21,7 +21,7 @@
     "handlebars": "^4.0.11",
     "hbs": "^4.0.1",
     "iconv": "^2.3.0",
-    "jquery": "^1.9.1",
+    "jquery": "^3.0.0",
     "node-sass": "^4.7.2",
     "popper.js": "^1.12.9",
     "request": "^2.83.0",
