@@ -32,11 +32,17 @@ body {
     height: 400px;
 }
 
-
+/* Welcome container */
 #welcome {        
     background-color: #880e4f;
     color: white;
     font-weight: bold;
+    width: 75% !important;
+}
+
+/* Results container */
+#results {
+    width: 75% !important;
 }
 
 .fetch-btn, .btn-article, .btn-stats {

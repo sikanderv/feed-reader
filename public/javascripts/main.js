@@ -221,7 +221,7 @@ function populateFeedsOnPage(elementToPopulate, feedsArray) {
         articleHTML += '<div class="card mb-3">'
             + '<a class="btn-article" target="_self" data-guid="' + item.guid + '" href="' + item.link + '" >'
             // + '<a target="_self" data-guid="' + item.guid + '" href="/article" >'
-            + '<img class="card-img-top contain" src="' + (item.image ? item.image : '/images/placeholder.png') + '"alt="article image" />'
+            + '<img class="card-img-top img-fluid" src="' + (item.image ? item.image : '/images/placeholder.png') + '"alt="article image" />'
             + '</a>'
             + '<div class="card-body">'
             + '<h4 class="h4-responsive mdb-color-text">' + item.title + '</h4>'
