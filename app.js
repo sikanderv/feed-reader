@@ -43,7 +43,7 @@ let articles;
 //     console.log(`Server is up and running on port ${port}`);
 // };
 
-app.listen(3000,'192.168.0.15' || 'localhost',function() {
+app.listen(port, '192.168.0.15' || 'localhost',function() {
     console.log('Application worker ' + process.pid + ' started...');
   }
   );
