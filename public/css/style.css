@@ -1,62 +1,102 @@
-/* Your custom styles */
+/* Custom styles */
 html,
 body {
-    height: 100%;    
-}
+  height: 100%; }
 
 .navbar {
-    background-color: #1c2a48;
-}
+  background-color: #1c2a48; }
 
 body {
-    /* to prevent navbar from obscuring contents of page */
-    padding-top: 65px; 
-}
-
+  /* to prevent navbar from obscuring contents of page */
+  padding-top: 65px; }
 
 .img-responsive {
-    height: 80% !important;
-    width: 80% !important;
-}
+  height: 60% !important;
+  width: 60% !important; }
 
 .sticky {
-    bottom: 0;
-}
+  bottom: 0; }
 
 .lead {
-    line-height: 28.5px;
-}
+  line-height: 28.5px; }
 
 #chartdiv {
-    width: 100%;
-    height: 400px;
-}
+  width: 100%;
+  height: 400px; }
 
 /* Welcome container */
-#welcome {        
-    background-color: #880e4f;
-    color: white;
-    font-weight: bold;
-    width: 75% !important;
-}
+#welcome {
+  font-weight: bold;
+  width: 75% !important;
+  border-radius: 1.5pc; }
 
 /* Results container */
 #results {
-    width: 75% !important;
-}
+  width: 60% !important;
+  height: 40vh !important; }
 
 .fetch-btn, .btn-article, .btn-stats {
-    background-color: rosybrown; 
-}
+  background-color: rosybrown; }
 
 .navbar-collapse.collapse.in {
-    display: block!important;
-}
+  display: block !important; }
 
-/* .img-container {
-    height: 700px;
-    width: 1000px;
-}
-.contain {
-    object-fit: contain;
-} */
+.custom-select {
+  padding-left: 0.5rem !important; }
+
+#welcome-form {
+  background: #e8f4f8;
+  border-radius: 0.5pc; }
+
+form {
+  color: #626292 !important; }
+
+fieldset {
+  border: none !important; }
+
+label {
+  width: 65% !important;
+  font-size: 1.2rem !important;
+  font-weight: bolder;
+  text-align: left !important; }
+
+legend {
+  font-size: 1.4rem !important;
+  color: #626292 !important;
+  font-weight: bold !important; }
+
+select {
+  -webkit-appearance: menulist-button; }
+
+select, input {
+  background: rgba(255, 255, 255, 0.1) !important;
+  background-color: #e8eeef !important;
+  width: 65% !important;
+  border: none !important;
+  border-radius: 1pc !important;
+  line-height: 2em; }
+
+select:focus, input:focus {
+  background: #d2d9dd !important; }
+
+#submitButton {
+  background-color: #1abc9c !important;
+  color: #FFF !important;
+  border: 0.5rem solid #16a085 !important;
+  border-width: 0.5em 0.5rem 0.5rem !important; }
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  margin-left: 8px; }
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  margin-left: 8px; }
+
+:-ms-input-placeholder {
+  /* IE 10+ */
+  margin-left: 8px; }
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  margin-left: 8px; }

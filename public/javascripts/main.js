@@ -1,6 +1,12 @@
 // Code to run on load of Home page
 if ($("body").data("title") === "home") {
 
+
+    // Reset select dropdown when user is trying to enter custom url
+    document.getElementById("custom_url").addEventListener("focus", function (e) {
+        document.getElementById("feedName").value = "";
+    });
+
     $(document).ready(function () {
 
         // Div to populate with feeds
@@ -10,30 +16,47 @@ if ($("body").data("title") === "home") {
 
         // Load page with most recently accessed feed results, if available
         if (localStorage.getItem("pageState") && localStorage.getItem("currentPageArticles")) {
-            unreadArticles = updateLocalStorage(unreadArticles, JSON.parse(localStorage.currentPageArticles));
+            unreadArticles = getUnreadArticles(unreadArticles, JSON.parse(localStorage.currentPageArticles));
             populateFeedsOnPage($results, unreadArticles);
             saveCurrentPageToLocalStorage($results);
         }
 
+        // Clear URL when dropdown option is selected
+        $("select#feedName").on("change", function (e) {
+            $("input#custom_url").val('');
+        });
+
         // Load new feed as selected by user
-        $('.fetch-btn').on('click', function (e) {
+        $("button#submitButton").on('click', function (e) {
 
-            // Assign name of the feed clicked (the button's id)
-            let name = this.id;
+            e.preventDefault();
 
-            // Assign to another variable to be sent to the server for fetch
-            let parameters = {
-                site_name: name
-            };
+            let $errors = $("#errors");
+            $errors.html("");
 
             // Bind URL and function to route 
-            $.get('/update', parameters, function (data) {
+            $.post('/', $('form#feeds').serialize(), function (data) {
+                // alert(JSON.stringify(data));
+                let firstElement = Object.keys(data)[0];
+                // alert(firstElement);
 
-                // if server returns valid data in Array form
-                if (data instanceof Array) {
+                if (firstElement === "validation_error") {
+                    data[firstElement].forEach((error) => {
+                        $errors.append(`<p class="alert-danger"><i class="fas fa-exclamation-triangle fa-2x"></i> ${error.msg}</p>`);
+                        $results.html("");
+                    });
+                } else if (firstElement === "fetch_error") {
+                    $errors.append(`<p class="alert-danger"><i class="fas fa-exclamation-triangle fa-2x"></i> ${data[firstElement]}</p>`);
+                    $results.html("");
+                } else if
+
+                // if server returns any other valid data in Array form (means successful trip to server)
+                (data instanceof Array) {
+
+                    console.log('below data instanceof array');
 
                     unreadArticles = [];
-                    unreadArticles = updateLocalStorage(unreadArticles, data);
+                    unreadArticles = getUnreadArticles(unreadArticles, data);
                     populateFeedsOnPage($results, unreadArticles);
                     saveCurrentPageToLocalStorage($results);
 
@@ -41,26 +64,45 @@ if ($("body").data("title") === "home") {
                 } else {
                     $results.html(data);
                 }
-            });
+            }, 'json'
+            );
         });
 
         // Display article when user clicks on image or 'article' button
-        // Known issue - first click after loading new feed does not prevent default
+        // Issue - first click after loading new feed does not prevent default
+        // Fixed by - changing the object to #results which is already present in the DOM when page loads
+        // as the button and image elements are created dynamically
         $('#results').on('click', '.btn-article', function (e) {
-           
+
             e.preventDefault();
 
-            // Get button/link's unique ID stored in data-* attribute
-            localStorage.guid = this.dataset.guid;
+            // if user clicks on image, show the same article within app
+            if (e.target.getAttribute("role") !== "button") {
 
-            // Switch to article view/route
-            $.ajax({
-                type: 'GET',
-                url: '/article',
-                success: function () {
-                    window.location = '/article';
-                }
-            });
+                // Get button/link's unique ID stored in data-* attribute
+                // so that it can be used to filter unread article
+                localStorage.guid = this.dataset.guid;
+
+                // Switch to article view/route
+                $.ajax({
+                    type: 'GET',
+                    url: '/article',
+                    success: function () {
+                        window.location = '/article';
+                    }
+                });
+
+                // if user clicks on 'Full Article' button, show article on originating website
+            } else {
+
+                // Get button/link's unique ID stored in data-* attribute
+                // so that it can be used to filter unread article
+                localStorage.guid = this.dataset.guid;
+
+                addCurrentArticleToReadArticles();
+
+                window.location = e.target.getAttribute("href");
+            }
         });
 
         // Display  stats view
@@ -87,10 +129,8 @@ if ($("body").data("title") === "article") {
 
     $(document).ready(function () {
 
-        // Element to append article info
+        // Element where article info is to be displayed
         let $article = $('#article');
-
-        let readArticlesGUID = [];
         let guid = localStorage.guid;
 
         // Get all the articles on the current page from local store
@@ -101,16 +141,11 @@ if ($("body").data("title") === "article") {
         try {
             if (guid && articleToDisplay) {
 
-                // Fill the element with selcted article 
+                // Fill the element with selected article 
                 populateFeedsOnPage($article, articleToDisplay);
 
-                // Do not add guid if it already exists in local storage
-                if (jQuery.inArray(guid, localStorage.readArticles) === -1) {
-                    readArticlesGUID.push(guid);
-
-                    // Save read articles data to localStorage
-                    localStorage.readArticles += JSON.stringify(readArticlesGUID);
-                }
+                // Add the article to localStorage.readArticles
+                addCurrentArticleToReadArticles();
 
             } else {
                 throw ('Unable to display the article..');
@@ -171,11 +206,33 @@ if ($("body").data("title") === "stats") {
 
 };
 
+
+
 /*
- * Update local storage with unread (filtered) articles
+ * Get latest unread (filtered) articles as well as update local storage
+ * Make sure to update localStorage.guid before calling this function
  * 
  */
-function updateLocalStorage(filteredArticles, unfilteredArticles) {
+function addCurrentArticleToReadArticles() {
+
+    let readArticlesGUID = [];
+
+    // Add guid if it is not present in local storage
+    if (jQuery.inArray(localStorage.guid, localStorage.readArticles) === -1) {
+        
+        readArticlesGUID.push(localStorage.guid);
+
+        // Save read articles data to localStorage
+        localStorage.readArticles += JSON.stringify(readArticlesGUID);
+    }
+}
+
+/*
+ * Get latest unread (filtered) articles as well as update local storage
+ * 
+ */
+function getUnreadArticles(filteredArticles, unfilteredArticles) {
+
     // Filter data from server to include only unread articles
     if (localStorage.readArticles) {
         filteredArticles = unfilteredArticles.filter(element => !JSON.parse(localStorage.readArticles.includes(element.guid)));
@@ -201,7 +258,6 @@ function saveCurrentPageToLocalStorage($element) {
 
     let currentPageHtml = $element.html();
     localStorage.pageState = currentPageHtml;
-
 };
 
 /*
@@ -209,7 +265,6 @@ function saveCurrentPageToLocalStorage($element) {
  * 
  */
 function populateFeedsOnPage(elementToPopulate, feedsArray) {
-
 
     elementToPopulate.empty();
 
@@ -227,7 +282,7 @@ function populateFeedsOnPage(elementToPopulate, feedsArray) {
             + '<h4 class="h4-responsive mdb-color-text">' + item.title + '</h4>'
             + '<p class="mdb-color-text">' + item.description + '</p>'
             + '<p class="card-text mdb-color-text"><small class="text-muted">' + (item.author ? item.author : 'Author Unknown') + '</small></p>'
-            + '<a role="button" target="_self" class="btn-article btn btn-sm" data-guid="' + item.guid + '"href="' + item.link + '"> Article </a>'
+            + '<a role="button" target="_self" class="btn-article btn btn-sm" data-guid="' + item.guid + '"href="' + item.link + '"> Full Article </a>'
             + '<a role="button" class="btn btn-sm btn-stats" data-guid="' + item.guid + '"href="/stats"> Statistics </a>'
             + '</div'
             + '</div>';
@@ -253,7 +308,7 @@ function getStats(articleData) {
     // Remove duplicates and sort the matched
     let uniqueCharSet = [...new Set(matched)].sort();
 
-    
+
     let letter = '';
     let totalCount = JSON.stringify(matched).length;
 

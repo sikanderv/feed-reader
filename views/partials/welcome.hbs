@@ -1,39 +1,51 @@
 <!--Section: Display Feed List-->
 
-<section class="container text-center">
+{{!--
+<div id="welcome" class="container text-center my-4 pt-3">
 
-    <div id="welcome" class="container card my-5">
+    <!-- Heading -->
+    <h1 class="m-3">Welcome, what would you like to read today?</h1>
 
-        <!-- Heading -->
-        <h3 class="card-title m-5 font-weight-bold text-center">Welcome, what would you like to read today?</h3>
+    <button type="button" class="btn fetch-btn mb-3" id="BBCSport">BBC Sport</button>
+    <button type="button" class="btn fetch-btn mb-3" id="TechCrunch">Tech Crunch</button>
+    <button type="button" class="btn fetch-btn mb-3" id="Guardian">The Guardian</button>
 
-        <div class="mask"></div>
+</div> --}}
 
-        <div class="card-body text-center">
+<div id="welcome-form" class="container w-50 text-center my-5 py-2">
+
+    <form action="/" id="feeds" method="post">
+        
+        <fieldset class="py-2">
             
-            <ul class="nav md-pills nav-justified">
+            <legend class="py-1 text-center text-uppercase">What would you like to read today?</legend>
+       {{!-- <p class="h4 text-center mb-4">What do you want to read today?</p> --}}
 
-                <li class="nav-item">
-                    <button type="button" class="btn fetch-btn" id="BBCSport">BBC Sport</button>
-                </li>
-
-                <li class="nav-item">
-                    <button type="button" class="btn fetch-btn" id="TechCrunch">Tech Crunch</button>
-                </li>
-
-                <li class="nav-item">
-                    <button type="button" class="btn fetch-btn" id="Guardian">The Guardian</button>
-                </li>
-            </ul>
-
+        <div class="form-group">
+            <label class="mb-1" for="feedName">Popular Feeds</label>
+            <select single name="feedName" id="feedName">
+                <option selected value="">Select a feed name</option>
+                <option value="BBCSport">BBC Sport</option>
+                <option value="TechCrunch">Tech Crunch</option>
+                <option value="Guardian">The Guardian</option>
+                <option value="SimplyRecipes">Simply Recipes</option>
+                <option value="Mashable">Mashable</option>
+            </select>
         </div>
 
-    </div>
+        <p><strong>OR</strong></p>
 
-    {{!-- <form action="/update" method="post">
-        <label for="custom_url">Or, enter your own URL</label>
-        <input type="url" name="custom_url" id="custom_url">
-    </form> --}}
+        <div class="form-group">
+            <label class="mb-1" for="custom_url">Enter your own..</label>
+            <input type="url" name="custom_url" id="custom_url" placeholder="Provide a valid feed URL">
+        </div>
 
+        {{!--
+        <input type="submit" id="submitButton" value="Submit"> --}}
+        <button id="submitButton" type="submit">Submit</button>
 
-</section>
+        </fieldset>
+ 
+
+    </form>
+</div>
