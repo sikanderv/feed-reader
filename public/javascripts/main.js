@@ -202,6 +202,7 @@ if ($("body").data("title") === "stats") {
             }
         });
 
+
     });
 
 };
