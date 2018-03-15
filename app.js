@@ -83,7 +83,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', (req, res) => {
 
     res.render('home.hbs', {
-        pageTitle: 'Simple Feed Reader',
+        pageTitle: 'Daily News Reader',
         pageHeading: 'Home page'
     });
 });
