@@ -4,27 +4,46 @@
 {{> head}}
 
 <body data-title="home">
-    {{> header}}
+    {{> header}} {{> welcome}}
 
-    {{> welcome}}
+    <!--Errors panel -->
+    <br>
+    <div id="errors" class="container w-50">
 
-        <!--Errors panel -->
-        <br>
-        <div id="errors" class="container w-50">
+    </div>
 
-        </div>
-        
-        <br>
-        <!-- Results panel-->
-        <div id="results" class="container">
+    <br>
+    <!-- Results panel-->
+    <div id="results" class="container">
 
-        </div>
+    </div>
 
 
- 
-    {{> footer}}   
-    
-     <script type="text/javascript" src="javascripts/main.js"></script>
+    {{> footer}}
+
+    {{!-- JQuery --}}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    {{!-- Popper --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+
+    <!--Boostrap JS-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+
+    <!-- Handlebars -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+
+
+    {{!-- Own JS --}}
+    <script type="text/javascript" src="javascripts/main.js"></script> {{!--
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script> --}}
+
+
 </body>
 
 </html>
