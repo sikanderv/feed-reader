@@ -72,7 +72,7 @@ if ($("body").data("title") === "home") {
         // Issue - first click after loading new feed does not prevent default
         // Fixed by - changing the object to #results which is already present in the DOM when page loads
         // as the button and image elements are created dynamically
-        $('#results').on('click', '.btn-article', function (e) {
+        $('#results').on('click', '.article__link', function (e) {
 
             e.preventDefault();
 
@@ -106,7 +106,7 @@ if ($("body").data("title") === "home") {
         });
 
         // Display  stats view
-        $('#results').on('click', '.btn-stats', function () {
+        $('#results').on('click', '.article__stats_btn', function () {
 
             // Get button unique ID stored in data-* attribute
             localStorage.guid = this.dataset.guid;
@@ -130,7 +130,7 @@ if ($("body").data("title") === "article") {
     $(document).ready(function () {
 
         // Element where article info is to be displayed
-        let $article = $('#article');
+        let $article = $('#article__article');
         let guid = localStorage.guid;
 
         // Get all the articles on the current page from local store
@@ -274,17 +274,17 @@ function populateFeedsOnPage(elementToPopulate, feedsArray) {
         const item = feedsArray[index];
         let articleHTML = '';
 
-        articleHTML += '<div class="card mb-3">'
-            + '<a class="btn-article" target="_self" data-guid="' + item.guid + '" href="' + item.link + '" >'
+        articleHTML += '<div class="article">'
+            + '<a class="article__link" target="_self" data-guid="' + item.guid + '" href="' + item.link + '" >'
             // + '<a target="_self" data-guid="' + item.guid + '" href="/article" >'
-            + '<img class="card-img-top img-fluid" src="' + (item.image ? item.image : '/images/placeholder.png') + '"alt="article image" />'
+            + '<img class="" src="' + (item.image ? item.image : '/images/placeholder.png') + '"alt="article image" />'
             + '</a>'
-            + '<div class="card-body">'
-            + '<h4 class="h4-responsive mdb-color-text">' + item.title + '</h4>'
-            + '<p class="mdb-color-text">' + item.description + '</p>'
-            + '<p class="card-text mdb-color-text"><small class="text-muted">' + (item.author ? item.author : 'Author Unknown') + '</small></p>'
-            + '<a role="button" target="_self" class="btn-article btn btn-sm" data-guid="' + item.guid + '"href="' + item.link + '"> Full Article </a>'
-            + '<a role="button" class="btn btn-sm btn-stats" data-guid="' + item.guid + '"href="/stats"> Statistics </a>'
+            + '<div class="article__body">'
+            + '<h4 class="article__title">' + item.title + '</h4>'
+            + '<p class="article__description">' + item.description + '</p>'
+            + '<p class="article__author"><small>' + (item.author ? item.author : 'Author Unknown') + '</small></p>'
+            + '<a role="button" target="_self" class="article__link article__btn" data-guid="' + item.guid + '"href="' + item.link + '"> Full Article </a>'
+            + '<a role="button" class="article__stats_btn" data-guid="' + item.guid + '"href="/stats"> Statistics </a>'
             + '</div'
             + '</div>';
         elementToPopulate.append(articleHTML);

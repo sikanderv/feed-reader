@@ -1,42 +1,25 @@
 <header>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+    <nav class="header__inner">
 
-        <!-- Container to center the links, s/b inside navbar always -->
-        <div class="container">
+        <!-- Logo -->
+        <img class="header__logo" src="images/city.png" alt="Iconic view of a city's skyline">
 
-            <!-- Navbar brand -->
-            <a href="/" class="navbar-brand js-scroll-trigger"><strong>{{pageTitle}}</strong></a>
+        <!-- Title -->
+        <h1 class="header__title">
+            <a href="/" >
+                {{pageTitle}}
+            </a>
+        </h1>
 
-            <!-- Collapse/toggle button -->
-
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Collapsible content -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <!-- Navbar links -->
-                <ul class="navbar-nav ml-auto smooth-scroll">
-                    <li class="nav-item active mr-4">
-                        <a href="/" class="nav-link js-scroll-trigger">Home<span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-
-                </ul>
-                <!-- links -->
-
-            </div>
-            <!-- collapsible content -->
-
-        </div>
-        <!-- container inside the navbar -->
-
+        <!-- Menu icon (burger) --> 
+        <a id="menu" class="header__menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
+          </svg>
+        </a>
     </nav>
     <!-- navbar -->
-  
-
+    
 </header>

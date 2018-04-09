@@ -4,21 +4,23 @@
 {{> head}}
 
 <body data-title="article">
-    {{> header}}
+
 
     <!-- Tab panels -->
-    <div class="container m-5">
+    <main>
 
-
+        {{> header}}
+        {{> navigation}}
         <!--Article-->
-        <div id="article" class="m-5 container">
+        <div id="article__article" class="container">
 
         </div>
 
+        {{> footer}}
 
-    </div>
+    </main>
 
-    {{> footer}}
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>

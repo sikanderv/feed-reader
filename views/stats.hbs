@@ -4,30 +4,31 @@
 {{> head}}
 
 <body data-title="stats">
-    {{> header}}
 
     <!-- Tab panels -->
-    <div class="container m-5">
+    <main>
 
+        {{> header}}
+        {{> navigation}}
         <!--Article stats-->
         <div id="chartdiv">
 
         </div>
 
-       <!--Article stats-->
-        <div id="chart_intro" class="brown-text container">
-            <strong>The above chart displays the number of times each letter (and Unicode char) appears in the Description of the article.</strong>
+        <!--Article stats-->
+        <div id="chart_intro">
+            <p>The above chart displays the number of times each letter (and Unicode char) appears in the Description of the
+                article.</p>
         </div>
 
+        {{> footer}}
 
-    </div>
+    </main>
 
-    {{> footer}}
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-
-    {{!-- Popper --}}
+        crossorigin="anonymous"></script> {{!-- Popper --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
 
@@ -36,6 +37,7 @@
     <script src="https://www.amcharts.com/lib/3/pie.js"></script>
     <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
     <script src="https://www.amcharts.com/lib/3/themes/chalk.js"></script>
+
     <script type="text/javascript" src="javascripts/main.js"></script>
 </body>
 
